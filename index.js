@@ -14,10 +14,10 @@ dotenv.config();
 conectarDB();
 
 // Configurar CORS
-const whitelist = [process.env.FRONTEND_URL];
+const whitelist = [process.env.FRONTEND_URL, process.env.BACKEND_URL];
 
 const corsOptions = {
-  origin: function (origin, callback) {    
+  origin: function (origin, callback) {
     if (whitelist.includes(origin)) {
       // Puede consultar la API
       callback(null, true);
