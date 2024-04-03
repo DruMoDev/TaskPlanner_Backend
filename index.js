@@ -9,12 +9,16 @@ import tareaRoutes from "./routes/tareaRoutes.js";
 const app = express();
 app.use(express.json()); //Esto hace que pueda procesar la información de tipo JSON
 
-dotenv.config();
+if (process.env.NODE_ENV === "production") {
+  dotenv.config({ path: "production.env" });
+} else {
+  dotenv.config({ path: "development.env" });
+}
 
 conectarDB();
 
 // Configurar CORS
-const whitelist = [process.env.FRONTEND_URL, process.env.BACKEND_URL];
+let whitelist = [process.env.FRONTEND_URL, process.env.BACKEND_URL];
 
 const corsOptions = {
   origin: function (origin, callback) {

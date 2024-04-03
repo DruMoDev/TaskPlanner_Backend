@@ -13,6 +13,8 @@ logs
 .env
 .env.local
 .env.*.local
+development.env
+production.env
 
 # Archivos de compilación
 /build

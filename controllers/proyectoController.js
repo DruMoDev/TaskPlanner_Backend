@@ -111,7 +111,6 @@ const agregarColaborador = async (req, res) => {
   const { id: idProyecto } = req.body;
 
   const proyecto = await Proyecto.findById(idProyecto);
-  console.log(proyecto);
 
   if (!proyecto) {
     const error = new Error("No encontrado.");
