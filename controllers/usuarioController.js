@@ -98,8 +98,7 @@ const olvidePassword = async (req, res) => {
       email: usuario.email,
       nombre: usuario.nombre,
       token: usuario.token,
-    })
-
+    });
 
     res.json({ msg: "Le hemos enviado un email con las instrucciones." });
   } catch (error) {
@@ -139,6 +138,38 @@ const nuevoPassword = async (req, res) => {
   }
 };
 
+const editarPerfil = async (req, res) => {
+  const { nombre, email, nuevoEmail } = req.body;
+  console.log(nuevoEmail, email);
+
+  //Encontrar en usuario con ese email en la base de datos, utilizando el email que se recibe en el body
+  const usuario = await Usuario.findOne({ email: req.body.email });
+  if (!usuario) {
+    const error = new Error("Actualiza la página y vuelve a intentarlo.");
+    return res.status(404).json({ msg: error.message });
+  }
+
+  // Comprobar si el nuevoEmail ya existe en la base de datos
+  const existeEmail = await Usuario.findOne({ email: nuevoEmail });
+  if (existeEmail) {
+    const error = new Error("El nuevo email ya está registrado.");
+    return res.status(400).json({ msg: error.message });
+  }
+
+  try {
+    if (nombre) usuario.nombre = nombre;
+    if (nuevoEmail) usuario.email = nuevoEmail;
+    await usuario.save();
+    res.json({
+      msg: "Usuario modificado correctamente.",
+      nombre: usuario?.nombre,
+      email: usuario?.email,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const perfil = async (req, res) => {
   const { usuario } = req;
   res.json(usuario);
@@ -152,4 +183,5 @@ export {
   comprobarToken,
   nuevoPassword,
   perfil,
+  editarPerfil,
 };
