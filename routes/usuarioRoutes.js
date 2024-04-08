@@ -7,7 +7,8 @@ import {
   comprobarToken,
   nuevoPassword,
   perfil,
-  editarPerfil
+  editarPerfil,
+  nuevoPasswordDesdePerfil,
 } from "../controllers/usuarioController.js";
 import checkAuth from "../middleware/checkAuth.js";
 
@@ -20,6 +21,7 @@ router.get("/confirmar/:token", confirmar); // Los ":" generan un routing dinami
 router.post("/olvide-password", olvidePassword);
 router.route("/olvide-password/:token").get(comprobarToken).post(nuevoPassword); //.route para multiples rutas con el mismo url pero diferente método.
 router.get("/perfil", checkAuth, perfil);
-router.put("/perfil/editar-perfil", editarPerfil)
+router.put("/perfil/editar-perfil", checkAuth, editarPerfil);
+router.put("/perfil/editar-password", checkAuth, nuevoPasswordDesdePerfil);
 
 export default router;

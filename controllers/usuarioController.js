@@ -138,6 +138,30 @@ const nuevoPassword = async (req, res) => {
   }
 };
 
+const nuevoPasswordDesdePerfil = async (req, res) => {
+  const { password, email, nuevoPassword } = req.body;
+
+  const usuario = await Usuario.findOne({ email });
+  if (!usuario) {
+    const error = new Error("El usuario no existe.");
+    return res.status(404).json({ msg: error.message });
+  }
+
+  if (await usuario.comprobarPassword(password)) {
+    usuario.password = nuevoPassword;
+    try {    
+      await usuario.save();      
+      res.json({ msg: "Password modificado correctamente." });
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    const error = new Error("El password es incorrecto.");
+    res.status(403).json({ msg: error.message });
+  }
+
+};
+
 const editarPerfil = async (req, res) => {
   const { nombre, email, nuevoEmail } = req.body;
   console.log(nuevoEmail, email);
@@ -184,4 +208,5 @@ export {
   nuevoPassword,
   perfil,
   editarPerfil,
+  nuevoPasswordDesdePerfil
 };

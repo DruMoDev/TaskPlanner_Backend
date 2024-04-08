@@ -22,7 +22,7 @@ const checkAuth = async (req, res, next) => {
     }
   }
   if (!token) {
-    const error = new Error(`Token no válido 4. token:${token}`);
+    const error = new Error(`Token no válido. Desde middleware.`);
     return res.status(401).json({ msg: error.message });
   }
   next();
