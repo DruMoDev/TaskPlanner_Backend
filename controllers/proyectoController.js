@@ -118,28 +118,22 @@ const agregarColaborador = async (req, res) => {
   }
 
   if (proyecto.creador.toString() !== req.usuario._id.toString()) {
-    const error = new Error("Acción no válida.");
+    const error = new Error("No eres el creador del proyecto.");
     return res.status(401).json({ msg: error.message });
   }
-  // Verificar si el colaborador ya existe en el array
+  // Verificar si el colaborador es el creador
   if (proyecto.creador.toString() === id.toString()) {
     const error = new Error("No puedes añadir al creador como colaborador.");
     return res.status(401).json({ msg: error.message });
   }
-  if (!proyecto.colaboradores.includes(id)) {
-    proyecto.colaboradores.push(id);
-    res.json(proyecto);
-  } else {
+  // Verificar que el colaborados no esté ya en el proyecto
+  if (proyecto.colaboradores.includes(id)) {
     const error = new Error("El colaborador ya pertenece al proyecto.");
-    res.status(401).json({ msg: error.message });
+    return res.status(401).json({ msg: error.message });
   }
-  // proyecto.colaboradores = [...proyecto.colaboradores, id] || proyecto.colaboradores
-  // proyecto.nombre = req.body.nombre || proyecto.nombre;
-  // proyecto.descripcion = req.body.descripcion || proyecto.descripcion;
-  // proyecto.fechaEntrega = req.body.fechaEntrega || proyecto.fechaEntrega;
-  // proyecto.cliente = req.body.cliente || proyecto.cliente;
 
   try {
+    proyecto.colaboradores.push(id);
     const proyectoAlmacenado = await proyecto.save();
     res.json(proyectoAlmacenado);
   } catch (error) {
@@ -157,7 +151,43 @@ const buscarColaborador = async (req, res) => {
   return res.json(usuario);
 };
 
-const eliminarColaborador = async (req, res) => {};
+const eliminarColaborador = async (req, res) => {
+  const { id } = req.params;
+  const { id: idProyecto } = req.body;
+
+  const proyecto = await Proyecto.findById(idProyecto);
+
+  if (!proyecto) {
+    const error = new Error("No encontrado.");
+    return res.status(403).json({ msg: error.message });
+  }
+
+  if (proyecto.creador.toString() !== req.usuario._id.toString()) {
+    const error = new Error("No eres el creador del proyecto.");
+    return res.status(401).json({ msg: error.message });
+  }
+  // Verificar si el colaborador es el creador
+  if (proyecto.creador.toString() === id.toString()) {
+    const error = new Error("No puedes añadir al creador como colaborador.");
+    return res.status(401).json({ msg: error.message });
+  }
+  // Verificar que el colaborados no esté ya en el proyecto
+  if (!proyecto.colaboradores.includes(id)) {
+    const error = new Error("El colaborador no pertenece al proyecto.");
+    return res.status(401).json({ msg: error.message });
+  }
+
+  try {
+    // Filtrar los colaboradores y eliminar el colaborador
+    proyecto.colaboradores = proyecto.colaboradores.filter(
+      (colaborador) => colaborador.toString() !== id.toString()
+    );
+    const proyectoAlmacenado = await proyecto.save();
+    res.json(proyectoAlmacenado);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export {
   obtenerProyectos,
