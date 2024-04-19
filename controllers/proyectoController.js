@@ -14,6 +14,9 @@ const obtenerProyectos = async (req, res) => {
   // Combinar los proyectos encontrados en uno solo
   const proyectos = [...proyectosCreador, ...proyectosColaborador];
 
+  // Antes de retornar los proyectos, ordenalos por fecha de creacion createdAt
+  proyectos.sort((a, b) => b.createdAt - a.createdAt);
+
   res.json(proyectos);
 };
 
