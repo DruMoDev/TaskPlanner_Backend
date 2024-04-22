@@ -15,8 +15,8 @@ const tareaSchema = mongoose.Schema(
     estado: {
       type: String,
       required: true,
-      enum: ["Pendiente", "En Proceso", "En Revisión", "Terminada"],
-      default: "Pendiente",
+      enum: ["pendiente", "enProgreso", "enRevisión", "terminada"],
+      default: "pendiente",
     },
     fechaEntrega: {
       type: Date,
