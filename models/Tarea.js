@@ -10,7 +10,6 @@ const tareaSchema = mongoose.Schema(
     descripcion: {
       type: String,
       trim: true,
-      required: true,
     },
     estado: {
       type: String,
