@@ -15,11 +15,11 @@ export const emailRegistro = async (datos) => {
 
   // Información del email
   const info = await transport.sendMail({
-    from: '"UpTask - Administrador de Proyectos" <cuentas@uptask.com>',
+    from: '"TaskPlanner - Administrador de Proyectos" <cuentas@TaskPlanner.com>',
     to: email,
-    subject: "UpTask - Confirma tu cuenta",
-    text: "Comprueba tu cuenta en UpTask",
-    html: `<p>Hola ${nombre}, confirma tu cuenta en UpTask</p>
+    subject: "TaskPlanner - Confirma tu cuenta",
+    text: "Comprueba tu cuenta en TaskPlanner",
+    html: `<p>Hola ${nombre}, confirma tu cuenta en TaskPlanner</p>
     <p>Tu cuenta ya esta casi lista, solo debes confirmarla en el siguiente enlace:</p>
     <a href="${process.env.FRONTEND_URL}/confirmar/${token}">Comprobar Cuenta</a>
     <p>Si tu no creaste esta cuenta, puedes ignorar el mensaje</p>    
@@ -42,9 +42,9 @@ export const emailOlvidePassword = async (datos) => {
 
   // Información del email
   const info = await transport.sendMail({
-    from: '"UpTask - Administrador de Proyectos" <cuentas@uptask.com>',
+    from: '"TaskPlanner - Administrador de Proyectos" <cuentas@TaskPlanner.com>',
     to: email,
-    subject: "UpTask - Reestablece tu password",
+    subject: "TaskPlanner - Reestablece tu password",
     text: "Reestablece tu password",
     html: `<p>Hola ${nombre}, has solicitado reestablecer tu password</p>
     <p>Sigue el siguiente enlace para generar un nuevo password:</p>
