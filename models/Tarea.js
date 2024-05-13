@@ -19,13 +19,13 @@ const tareaSchema = mongoose.Schema(
     },
     fechaEntrega: {
       type: Date,
-      required: true,
-      default: Date.now, // cambiado a Date.now
+      required: false,
+      // default: Date.now, // cambiado a Date.now
     },
     prioridad: {
       type: String,
-      required: true,
-      enum: ["Baja", "Media", "Alta"],
+      required: false,
+      enum: ["-- Sin Prioridad --","Baja", "Media", "Alta"],
     },
     proyecto: {
       type: mongoose.Schema.Types.ObjectId,
