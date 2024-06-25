@@ -38,9 +38,9 @@ conectarDB();
 
 app.use(cors(
   {
-    origin: [process.env.FRONTEND_URL, process.env.BACKEND_URL],
-    credentials: true,
+    origin: ["https://task-planner-dru.vercel.app", "https://task-planner-frontend-git-main-drus-projects.vercel.app", "https://task-planner-frontend-fb7ml5xjn-drus-projects.vercel.app"],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
   }
 ));
 
