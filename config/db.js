@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const conectarDB = async () => {
   try {
     const connection = await mongoose.connect(process.env.MONGO_URI);
+    // const connection = await mongoose.connect(process.env.MONGODB_URI);
 
     // Esto es solo para saber información de conexion y mostrarlo en un clg
     const url = `${connection.connection.host}: ${connection.connection.port}`;
