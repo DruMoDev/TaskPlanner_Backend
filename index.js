@@ -38,7 +38,7 @@ conectarDB();
 
 app.use(cors(
   {
-    origin: ["https://task-planner-dru.vercel.app", "https://task-planner-frontend-git-main-drus-projects.vercel.app", "https://task-planner-frontend-fb7ml5xjn-drus-projects.vercel.app"],
+    origin: ["https://task-planner-dru.vercel.app", "https://task-planner-frontend-git-main-drus-projects.vercel.app", "https://task-planner-frontend-fb7ml5xjn-drus-projects.vercel.app", "https://localhost:5173"],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   }
