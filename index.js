@@ -18,7 +18,8 @@ if (process.env.NODE_ENV === "production") {
 conectarDB();
 
 // Configurar CORS
-let whitelist = [process.env.FRONTEND_URL, process.env.BACKEND_URL];
+let whitelist = ["https://task-planner-dru.vercel.app/"];
+// let whitelist = [process.env.FRONTEND_URL, process.env.BACKEND_URL];
 
 
 const corsOptions = {
