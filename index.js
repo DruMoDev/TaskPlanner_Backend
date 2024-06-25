@@ -18,7 +18,7 @@ if (process.env.NODE_ENV === "production") {
 conectarDB();
 
 // Configurar CORS
-let whitelist = ["https://task-planner-dru.vercel.app"];
+let whitelist = ["https://task-planner-dru.vercel.app", "https://task-planner-backend.vercel.app", "http://localhost:5173/", "http://localhost:5173"];
 // let whitelist = [process.env.FRONTEND_URL, process.env.BACKEND_URL];
 
 
