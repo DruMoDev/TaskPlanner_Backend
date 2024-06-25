@@ -3,7 +3,7 @@
     "builds": [
         {
             "src": "index.js",
-            "use": "@now/node-server",
+            "use": "set NODE_ENV=production&& @vercel/node",
             "config": { "zeroConfig": true }
         }
     ],
