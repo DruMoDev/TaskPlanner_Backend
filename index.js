@@ -18,31 +18,31 @@ if (process.env.NODE_ENV === "production") {
 conectarDB();
 
 // Configurar CORS
-// let whitelist = [process.env.FRONTEND_URL, process.env.BACKEND_URL];
+let whitelist = [process.env.FRONTEND_URL, process.env.BACKEND_URL];
 
-// const corsOptions = {
-//   origin: function (origin, callback) {
-//     console.log("Origin:", origin); // Agrega esta línea para depuración
+const corsOptions = {
+  origin: function (origin, callback) {
+    console.log("Origin:", origin); // Agrega esta línea para depuración
 
-//     if (whitelist.includes(origin)) {
-//       // Puede consultar la API
-//       callback(null, true);
-//     } else {
-//       //No tiene permiso
-//       callback(new Error("Error de CORS. No estas en la whitelist"));
-//     }
-//   },
-// };
+    if (whitelist.includes(origin)) {
+      // Puede consultar la API
+      callback(null, true);
+    } else {
+      //No tiene permiso
+      callback(new Error("Error de CORS. No estas en la whitelist"));
+    }
+  },
+};
 
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
-app.use(cors(
-  {
-    origin: ["https://task-planner-dru.vercel.app", "https://task-planner-frontend-git-main-drus-projects.vercel.app", "https://task-planner-frontend-fb7ml5xjn-drus-projects.vercel.app", "https://localhost:5173"],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    credentials: true,
-  }
-));
+// app.use(cors(
+//   {
+//     origin: ["https://task-planner-dru.vercel.app", "https://task-planner-frontend-git-main-drus-projects.vercel.app", "https://task-planner-frontend-fb7ml5xjn-drus-projects.vercel.app", "https://localhost:5173"],
+//     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+//     credentials: true,
+//   }
+// ));
 
 // Routing
 app.use("/api/usuarios", usuarioRoutes);
